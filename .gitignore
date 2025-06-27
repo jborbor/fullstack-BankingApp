@@ -1,0 +1,23 @@
+# Java
+**/target/
+**/build/
+**/.classpath
+**/.project
+**/.settings/
+**/.idea/
+**/*.iml
+
+# Logs
+*.log
+
+# Node
+**/node_modules/
+**/dist/
+**/.angular/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env

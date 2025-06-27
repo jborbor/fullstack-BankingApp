@@ -1,0 +1,53 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: db_banking
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./banking_database/sql:/docker-entrypoint-initdb.d
+    networks:
+      - jborbor-network
+
+  account_service:
+    build: ./banking_backend/account_service
+    container_name: account_service
+    mem_limit: 800m
+    ports:
+      - "8080:8080"
+    networks:
+      - jborbor-network
+    depends_on:
+      - mysql
+      
+  customer_service:
+    build: ./banking_backend/customer_service
+    container_name: customer_service
+    mem_limit: 800m
+    ports:
+      - "8081:8081"
+    networks:
+      - jborbor-network
+    depends_on:
+      - mysql
+
+  frontend:
+    build: ./banking_frontend
+    container_name: frontend
+    mem_limit: 800m
+    ports:
+      - "4200:80"
+    networks:
+      - jborbor-network
+
+volumes:
+  mysql-data:
+
+networks:
+  jborbor-network:
