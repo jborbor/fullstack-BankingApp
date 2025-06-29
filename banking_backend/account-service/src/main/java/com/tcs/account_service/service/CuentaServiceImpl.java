@@ -1,14 +1,11 @@
 package com.tcs.account_service.service;
 
 import com.tcs.account_service.domain.Entity.Cuenta;
-import com.tcs.account_service.domain.Enums.Estado;
 import com.tcs.account_service.dto.request.CuentaRequestDTO;
 import com.tcs.account_service.dto.response.ClienteResponseDTO;
 import com.tcs.account_service.dto.response.CuentaResponseDTO;
 import com.tcs.account_service.mapper.CuentaMapper;
 import com.tcs.account_service.repository.CuentaRepository;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +30,6 @@ public class CuentaServiceImpl {
     public CuentaResponseDTO saveCuenta(CuentaRequestDTO cuentaRequestDTO) {
 
         ClienteResponseDTO cliente = clienteClient.getClienteById(cuentaRequestDTO.getClienteId());
-
-        if (cliente == null) {
-            System.out.println(cliente);
-        }
 
         Cuenta cuenta = cuentaMapper.toResponseEntity(cuentaRequestDTO);
         cuentaRepository.save(cuenta);

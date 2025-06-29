@@ -18,17 +18,11 @@ public class ClienteClient {
     }
 
     public ClienteResponseDTO getClienteById(Integer id) {
-        try {
-            return webClient.get()
-                    .uri("/{id}", id)
-                    .retrieve()
-                    .bodyToMono(ClienteResponseDTO.class)
-                    .block(); // ← Sincrónico
-        } catch (WebClientResponseException.NotFound e) {
-            throw new RuntimeException("Cliente no encontrado");
-        } catch (Exception e) {
-            throw new RuntimeException("Error al consumir el servicio de clientes");
-        }
+        return webClient.get()
+                .uri("/{id}", id)
+                .retrieve()
+                .bodyToMono(ClienteResponseDTO.class)
+                .block(); // ← Sincrónico
     }
 
 }
