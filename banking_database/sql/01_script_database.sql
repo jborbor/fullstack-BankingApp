@@ -16,8 +16,8 @@ CREATE TABLE persona (
 -- Tabla: cliente
 CREATE TABLE cliente (
     id INT PRIMARY KEY,
-    contraseña VARCHAR(100) NOT NULL,
-    estado BOOLEAN NOT NULL,
+    contrasenia VARCHAR(100) NOT NULL,
+    estado VARCHAR(10) NOT NULL,
     FOREIGN KEY (id) REFERENCES persona(id) ON DELETE CASCADE
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE cuenta (
     numero BIGINT PRIMARY KEY,
     tipo VARCHAR(20) NOT NULL,
     saldo_inicial DECIMAL(15,2) NOT NULL,
-    estado BOOLEAN NOT NULL,
+    estado VARCHAR(10) NOT NULL,
     cliente_id INT NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
 );
