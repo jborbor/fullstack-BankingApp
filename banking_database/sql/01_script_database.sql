@@ -23,7 +23,8 @@ CREATE TABLE cliente (
 
 -- Tabla: cuenta
 CREATE TABLE cuenta (
-    numero BIGINT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_cuenta BIGINT UNIQUE NOT NULL,
     tipo VARCHAR(20) NOT NULL,
     saldo_inicial DECIMAL(15,2) NOT NULL,
     estado VARCHAR(10) NOT NULL,
@@ -38,6 +39,6 @@ CREATE TABLE movimiento (
     tipo_movimiento VARCHAR(20) NOT NULL,
     valor DECIMAL(15,2) NOT NULL,
     saldo DECIMAL(15,2) NOT NULL,
-    cuenta_numero BIGINT NOT NULL,
-    FOREIGN KEY (cuenta_numero) REFERENCES cuenta(numero) ON DELETE CASCADE
+    numero_cuenta BIGINT NOT NULL,
+    FOREIGN KEY (numero_cuenta) REFERENCES cuenta(numero_cuenta) ON DELETE CASCADE
 );
