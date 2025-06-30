@@ -30,10 +30,18 @@ public class Cuenta {
     @Column(name = "saldo_inicial", nullable = false)
     private BigDecimal saldoInicial;
 
+    @Column(name = "saldo_actual", nullable = false)
+    private BigDecimal saldoActual;
+
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
     @Column(name = "cliente_id", nullable = false)
     private int clienteId;
+
+    @PrePersist
+    public void prePersist() {
+        this.saldoActual = this.saldoInicial;
+    }
 
 }

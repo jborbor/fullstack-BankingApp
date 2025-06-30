@@ -2,9 +2,10 @@ package com.tcs.account_service.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record ReporteResponseDTO(
-        LocalDate fecha,
+        LocalDateTime fecha,
         String cliente,
         String numeroCuenta,
         String tipo,

@@ -2,6 +2,7 @@ package com.tcs.account_service.service;
 
 import com.tcs.account_service.domain.Entity.Cuenta;
 import com.tcs.account_service.domain.Entity.Movimiento;
+import com.tcs.account_service.domain.Enums.TipoMovimiento;
 import com.tcs.account_service.dto.request.CuentaRequestDTO;
 import com.tcs.account_service.dto.response.ClienteResponseDTO;
 import com.tcs.account_service.dto.response.CuentaResponseDTO;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,14 +103,18 @@ public class CuentaServiceImpl {
                     );
 
             for (Movimiento mov : movimientos) {
+                BigDecimal valorAjustado = TipoMovimiento.DEBITO.toString().equalsIgnoreCase(mov.getTipoMovimiento().toString())
+                        ? mov.getValor().negate()
+                        : mov.getValor();
+
                 reporte.add(new ReporteResponseDTO(
-                        mov.getFecha().toLocalDate(),
+                        mov.getFecha(),
                         cliente.getNombre(),
                         cuenta.getNumeroCuenta(),
                         cuenta.getTipoCuenta().name(),
-                        cuenta.getSaldoInicial(),
+                        mov.getSaldoAnterior(),
                         cuenta.getEstado().name(),
-                        mov.getValor(),
+                        valorAjustado,
                         mov.getSaldo()
                 ));
             }

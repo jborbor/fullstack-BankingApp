@@ -39,6 +39,12 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, message);
     }
 
+    @ExceptionHandler(IllegalArgumentException .class)
+    public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException  ex) {
+        String message = ex.getMessage();
+        return buildResponse(HttpStatus.BAD_REQUEST, message);
+    }
+
     @ExceptionHandler(WebClientResponseException.class)
     public ResponseEntity<Map<String, Object>> handleWebClientError(WebClientResponseException ex) {
         String message = extraerMensajeDesdeJson(ex.getResponseBodyAsString());

@@ -8,5 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
+    List<Movimiento> findByNumeroCuenta(String numeroCuenta);
     List<Movimiento> findByNumeroCuentaAndFechaBetween(String numeroCuenta, LocalDateTime desde, LocalDateTime hasta);
 }

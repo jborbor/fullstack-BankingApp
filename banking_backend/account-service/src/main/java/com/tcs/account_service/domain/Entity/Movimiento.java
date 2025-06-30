@@ -1,5 +1,6 @@
 package com.tcs.account_service.domain.Entity;
 
+import com.tcs.account_service.domain.Enums.TipoMovimiento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,8 +26,12 @@ public class Movimiento {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_movimiento", nullable = false)
-    private String tipoMovimiento;
+    private TipoMovimiento tipoMovimiento;
+
+    @Column(name = "saldo_anterior", nullable = false)
+    private BigDecimal saldoAnterior;
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
