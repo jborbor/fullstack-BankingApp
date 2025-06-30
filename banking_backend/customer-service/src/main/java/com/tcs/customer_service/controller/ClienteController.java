@@ -30,6 +30,12 @@ public class ClienteController {
         return ResponseEntity.ok(cliente);
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<ClienteResponseDTO> getCuentaByIdentificacion(@RequestParam String identificacion) {
+        ClienteResponseDTO cliente = clienteService.getClienteByIdentificacion(identificacion);
+        return ResponseEntity.ok(cliente);
+    }
+
     @PostMapping
     public ResponseEntity<ClienteResponseDTO> createCliente(@Valid @RequestBody ClienteRequestDTO clienteRequestDTO) {
         ClienteResponseDTO cliente = clienteService.saveCliente(clienteRequestDTO);

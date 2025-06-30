@@ -23,9 +23,11 @@ CREATE TABLE cliente (
 
 -- Tabla: cuenta
 CREATE TABLE cuenta (
-    numero BIGINT PRIMARY KEY,
-    tipo VARCHAR(20) NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_cuenta VARCHAR(40) UNIQUE NOT NULL,
+    tipo_cuenta VARCHAR(20) NOT NULL,
     saldo_inicial DECIMAL(15,2) NOT NULL,
+	saldo_actual DECIMAL(15,2) NOT NULL,
     estado VARCHAR(10) NOT NULL,
     cliente_id INT NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
@@ -34,10 +36,12 @@ CREATE TABLE cuenta (
 -- Tabla: movimiento
 CREATE TABLE movimiento (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    fecha DATE NOT NULL,
+    fecha DATETIME NOT NULL,
+	descripcion VARCHAR(20) NOT NULL,
     tipo_movimiento VARCHAR(20) NOT NULL,
+	saldo_anterior DECIMAL(15,2) NOT NULL,
     valor DECIMAL(15,2) NOT NULL,
     saldo DECIMAL(15,2) NOT NULL,
-    cuenta_numero BIGINT NOT NULL,
-    FOREIGN KEY (cuenta_numero) REFERENCES cuenta(numero) ON DELETE CASCADE
+    numero_cuenta VARCHAR(40) NOT NULL,
+    FOREIGN KEY (numero_cuenta) REFERENCES cuenta(numero_cuenta) ON DELETE CASCADE
 );

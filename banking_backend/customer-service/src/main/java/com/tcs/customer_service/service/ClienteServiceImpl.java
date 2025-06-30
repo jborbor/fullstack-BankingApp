@@ -32,6 +32,13 @@ public class ClienteServiceImpl {
         return clienteMapper.toResponseDTO(cliente);
     }
 
+    @Transactional(readOnly = true)
+    public ClienteResponseDTO getClienteByIdentificacion(String identificacion) {
+        Cliente cliente = clienteRepository.findByIdentificacion(identificacion)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente con cc" + identificacion + " no encontrada"));
+        return clienteMapper.toResponseDTO(cliente);
+    }
+
     @Transactional
     public ClienteResponseDTO saveCliente(ClienteRequestDTO clienteRequestDTO) {
         Cliente cliente = clienteMapper.toResponseEntity(clienteRequestDTO);

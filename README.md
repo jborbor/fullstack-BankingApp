@@ -27,8 +27,8 @@ fullstack-Banking/
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/jborbor/fullstack-ToDoApp.git
-cd fullstack-ToDoApp
+git clone https://github.com/jborbor/fullstack-BankingApp.git
+cd fullstack-BankingApp
 ```
 
 2. Levanta los contenedores:
@@ -44,9 +44,10 @@ Esto levantará:
 - Los microservicios backend
 - El frontend Angular (vía NGINX)
 
-## 📦 Documentacion de la api con OpenApi
+## 📦 Documentacion de laS api con OpenApi
 
-http://localhost:8080/api/v1/swagger-ui.html
+http://localhost:8080/api/v1/swagger-ui/index.html # Clientes
+http://localhost:8081/api/v1/swagger-ui/index.html # Cuentas y movimientos
 
 ## 📬 Contacto
 
