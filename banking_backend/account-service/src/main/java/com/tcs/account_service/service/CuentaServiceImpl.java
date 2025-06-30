@@ -55,7 +55,7 @@ public class CuentaServiceImpl {
         ClienteResponseDTO cliente = clienteClient.getClienteById(cuentaRequestDTO.getClienteId());
 
         if (cliente == null) {
-            // TODO: Se puede implementar una excepción personalizada o loggear un error
+            throw new ResourceNotFoundException("Cliente no encontrado con id: " + cuentaRequestDTO.getClienteId());
         }
 
         Cuenta cuenta = cuentaMapper.toResponseEntity(cuentaRequestDTO);

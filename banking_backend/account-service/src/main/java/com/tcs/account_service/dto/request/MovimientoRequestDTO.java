@@ -12,13 +12,9 @@ import java.time.LocalDateTime;
 @Data
 public class MovimientoRequestDTO {
 
-    private Long id;
-    private LocalDateTime fecha;
     private String descripcion;
     private TipoMovimiento tipoMovimiento;
-    private BigDecimal saldoAnterior;
     private BigDecimal valor;
-    private BigDecimal saldo;
     private String numeroCuenta;
 
 }

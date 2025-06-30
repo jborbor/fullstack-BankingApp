@@ -52,20 +52,23 @@ public class MovimientoServiceImpl {
     }
 
     @Transactional
-    public MovimientoResponseDTO saveMovimiento(MovimientoRequestDTO movimientoRequestDTO) {
+    public MovimientoResponseDTO saveMovimiento(MovimientoRequestDTO dto) {
 
-        Cuenta cuenta = cuentaRepository.findByNumeroCuenta(movimientoRequestDTO.getNumeroCuenta())
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta " + movimientoRequestDTO.getNumeroCuenta() + " no encontrada"));
+        Cuenta cuenta = cuentaRepository.findByNumeroCuenta(dto.getNumeroCuenta())
+                .orElseThrow(() -> new ResourceNotFoundException("Cuenta " + dto.getNumeroCuenta() + " no encontrada"));
 
-        movimientoRequestDTO.setValor(movimientoRequestDTO.getValor().abs());
+        if (dto.getValor().compareTo(BigDecimal.ZERO) == 0) {
+            throw new IllegalArgumentException("El valor del movimiento debe ser diferente de 0.");
+        }
 
+        BigDecimal valor = dto.getValor().abs();
         BigDecimal saldoActual = cuenta.getSaldoActual();
 
         BigDecimal nuevoSaldo;
-        if (TipoMovimiento.CREDITO.toString().equalsIgnoreCase(movimientoRequestDTO.getTipoMovimiento().toString())) {
-            nuevoSaldo = saldoActual.add(movimientoRequestDTO.getValor());
-        } else if (TipoMovimiento.DEBITO.toString().equalsIgnoreCase(movimientoRequestDTO.getTipoMovimiento().toString())) {
-            nuevoSaldo = saldoActual.subtract(movimientoRequestDTO.getValor());
+        if (dto.getTipoMovimiento() == TipoMovimiento.CREDITO) {
+            nuevoSaldo = saldoActual.add(valor);
+        } else if (dto.getTipoMovimiento() == TipoMovimiento.DEBITO) {
+            nuevoSaldo = saldoActual.subtract(valor);
             if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
                 throw new IllegalArgumentException("Saldo insuficiente para retiro");
             }
@@ -73,15 +76,20 @@ public class MovimientoServiceImpl {
             throw new IllegalArgumentException("Tipo de movimiento no válido");
         }
 
-        movimientoRequestDTO.setSaldoAnterior(saldoActual);
-        movimientoRequestDTO.setFecha(LocalDateTime.now());
-        movimientoRequestDTO.setSaldo(nuevoSaldo);
+        Movimiento movimiento = new Movimiento();
+        movimiento.setFecha(LocalDateTime.now());
+        movimiento.setDescripcion(dto.getDescripcion());
+        movimiento.setTipoMovimiento(dto.getTipoMovimiento());
+        movimiento.setValor(valor);
+        movimiento.setSaldoAnterior(saldoActual);  // si tienes este campo
+        movimiento.setSaldo(nuevoSaldo);
+        movimiento.setNumeroCuenta(dto.getNumeroCuenta());
 
         cuenta.setSaldoActual(nuevoSaldo);
         cuentaRepository.save(cuenta);
 
-        Movimiento movimiento = movimientoMapper.toResponseEntity(movimientoRequestDTO);
         movimientoRepository.save(movimiento);
+
         return movimientoMapper.toResponseDTO(movimiento);
     }
 
