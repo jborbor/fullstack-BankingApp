@@ -2,13 +2,16 @@ package com.tcs.account_service.controller;
 
 import com.tcs.account_service.dto.request.CuentaRequestDTO;
 import com.tcs.account_service.dto.response.CuentaResponseDTO;
+import com.tcs.account_service.dto.response.ReporteResponseDTO;
 import com.tcs.account_service.service.CuentaServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -52,5 +55,15 @@ public class CuentaConroller {
     public ResponseEntity<CuentaResponseDTO> updateCuenta(@PathVariable Long id, @Valid @RequestBody CuentaRequestDTO cuentaRequestDTO) {
         CuentaResponseDTO cuenta = cuentaService.updateCuenta(id, cuentaRequestDTO);
         return new ResponseEntity<>(cuenta, HttpStatus.OK);
+    }
+
+    @GetMapping("/reportes")
+    public ResponseEntity<List<ReporteResponseDTO>> obtenerReporte(
+            @RequestParam String identificacion,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin) {
+
+        List<ReporteResponseDTO> reporte = cuentaService.generarReporteEstadoCuenta(identificacion, fechaInicio, fechaFin);
+        return ResponseEntity.ok(reporte);
     }
 }

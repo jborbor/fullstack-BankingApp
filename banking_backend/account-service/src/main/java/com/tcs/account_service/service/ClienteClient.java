@@ -25,4 +25,14 @@ public class ClienteClient {
                 .block(); // ← Sincrónico
     }
 
+    public ClienteResponseDTO getClienteBydentificacion(String identificacion) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/buscar")
+                        .queryParam("identificacion", identificacion)
+                        .build())
+                .retrieve()
+                .bodyToMono(ClienteResponseDTO.class)
+                .block();
+    }
+
 }

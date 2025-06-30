@@ -1,16 +1,21 @@
 package com.tcs.account_service.service;
 
 import com.tcs.account_service.domain.Entity.Cuenta;
+import com.tcs.account_service.domain.Entity.Movimiento;
 import com.tcs.account_service.dto.request.CuentaRequestDTO;
 import com.tcs.account_service.dto.response.ClienteResponseDTO;
 import com.tcs.account_service.dto.response.CuentaResponseDTO;
+import com.tcs.account_service.dto.response.ReporteResponseDTO;
 import com.tcs.account_service.exception.ResourceNotFoundException;
 import com.tcs.account_service.mapper.CuentaMapper;
 import com.tcs.account_service.repository.CuentaRepository;
+import com.tcs.account_service.repository.MovimientoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,6 +25,7 @@ public class CuentaServiceImpl {
     private final CuentaRepository cuentaRepository;
     private final CuentaMapper cuentaMapper;
     private final ClienteClient clienteClient;
+    private final MovimientoRepository movimientoRepository;
 
     @Transactional(readOnly = true)
     public List<CuentaResponseDTO> getAllCuentas() {
@@ -78,6 +84,37 @@ public class CuentaServiceImpl {
 
         cuentaRepository.save(cuenta);
         return cuentaMapper.toResponseDTO(cuenta);
+    }
+
+    public List<ReporteResponseDTO> generarReporteEstadoCuenta(String identificacion, LocalDate fechaInicio, LocalDate fechaFin) {
+        ClienteResponseDTO cliente = clienteClient.getClienteBydentificacion(identificacion);
+        List<Cuenta> cuentas = cuentaRepository.findByClienteId(cliente.getId().intValue());
+
+        List<ReporteResponseDTO> reporte = new ArrayList<>();
+
+        for (Cuenta cuenta : cuentas) {
+            List<Movimiento> movimientos = movimientoRepository
+                    .findByNumeroCuentaAndFechaBetween(
+                            cuenta.getNumeroCuenta(),
+                            fechaInicio.atStartOfDay(),
+                            fechaFin.atTime(23, 59, 59)
+                    );
+
+            for (Movimiento mov : movimientos) {
+                reporte.add(new ReporteResponseDTO(
+                        mov.getFecha().toLocalDate(),
+                        cliente.getNombre(),
+                        cuenta.getNumeroCuenta(),
+                        cuenta.getTipoCuenta().name(),
+                        cuenta.getSaldoInicial(),
+                        cuenta.getEstado().name(),
+                        mov.getValor(),
+                        mov.getSaldo()
+                ));
+            }
+        }
+
+        return reporte;
     }
 
 }
