@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "bf7555ac-e8a8-43e8-8569-04b212d2dad9",
+		"name": "Banking App Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15874583"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "GetAllClientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/clientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClienteById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/clientes/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClienteByIdentificacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/clientes/buscar?identificacion=2450337312",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"clientes",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "identificacion",
+									"value": "2450337312"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/clientes/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"clientes",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"JONATHAN\",\r\n    \"genero\": \"FEMENINO\",\r\n    \"edad\": 28,\r\n    \"identificacion\": \"2450337350\",\r\n    \"direccion\": \"la libertad\",\r\n    \"telefono\": \"0985287857\",\r\n    \"contrasenia\": \"123456\",\r\n    \"estado\": \"TRUE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/clientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"CARLA\",\r\n    \"genero\": \"FEMENINO\",\r\n    \"edad\": 19,\r\n    \"identificacion\": \"2400075120\",\r\n    \"direccion\": \"la libertad\",\r\n    \"telefono\": \"0985287857\",\r\n    \"contrasenia\": \"fvdvre\",\r\n    \"estado\": \"DGTDGV\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/clientes/7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"clientes",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuentas",
+			"item": [
+				{
+					"name": "GetAllCuentas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/cuentas",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"cuentas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCuentaById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/cuentas/1",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"cuentas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCuentaByNumeroCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/cuentas/buscar?numeroCuenta=2450000002",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"cuentas",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "numeroCuenta",
+									"value": "2450000002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReporteEstadoCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/cuentas/reportes?identificacion=2450337350&fechaInicio=2025-06-27&fechaFin=2025-06-30",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"cuentas",
+								"reportes"
+							],
+							"query": [
+								{
+									"key": "identificacion",
+									"value": "2450337350"
+								},
+								{
+									"key": "fechaInicio",
+									"value": "2025-06-27"
+								},
+								{
+									"key": "fechaFin",
+									"value": "2025-06-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCuenta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/cuentas/1",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"cuentas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCuenta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numeroCuenta\": \"12345\",\r\n    \"tipoCuenta\": \"AHORROS\",\r\n    \"saldoInicial\": 5000.00,\r\n    \"estado\": \"TRUE\",\r\n    \"clienteId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_1}}/cuentas",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"cuentas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCuenta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numeroCuenta\": \"2450000020\",\r\n    \"tipoCuenta\": \"CORRIENTE\",\r\n    \"saldoInicial\": 0.00,\r\n    \"estado\": \"FALSE\",\r\n    \"clienteId\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_1}}/cuentas/1",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"cuentas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movimientos",
+			"item": [
+				{
+					"name": "CreateMovimiento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numeroCuenta\": \"12345\",\r\n    \"descripcion\": \"DEUDA\",\r\n    \"tipoMovimiento\": \"DEBITO\",\r\n    \"valor\": 6000.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_1}}/movimientos",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"movimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllMovimientos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/movimientos",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"movimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMovimientoById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/movimientos/1",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"movimientos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMovimientosByNumeroCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_1}}/movimientos/buscar?numeroCuenta=12345",
+							"host": [
+								"{{base_url_1}}"
+							],
+							"path": [
+								"movimientos",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "numeroCuenta",
+									"value": "12345"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "base_url_1",
+			"value": "http://localhost:8081/api/v1",
+			"type": "string"
+		}
+	]
+}
