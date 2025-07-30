@@ -32,20 +32,17 @@ public class MovimientoServiceImpl {
     private final MovimientoRepository movimientoRepository;
     private final MovimientoMapper movimientoMapper;
 
-    @Transactional(readOnly = true)
     public List<MovimientoResponseDTO> getAllMovimientos() {
         List<Movimiento> movimientos = movimientoRepository.findAll();
         return movimientoMapper.toResponseDtoList(movimientos);
     }
 
-    @Transactional(readOnly = true)
     public MovimientoResponseDTO getMovimientoById(Long id) {
         Movimiento movimiento = movimientoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movimiento con id " + id + " no encontrado"));
         return movimientoMapper.toResponseDTO(movimiento);
     }
 
-    @Transactional(readOnly = true)
     public List<MovimientoResponseDTO> getMovimientosByNumeroCuenta(String numeroCuenta) {
         List<Movimiento> movimientos = movimientoRepository.findByNumeroCuenta(numeroCuenta);
         return movimientoMapper.toResponseDtoList(movimientos);

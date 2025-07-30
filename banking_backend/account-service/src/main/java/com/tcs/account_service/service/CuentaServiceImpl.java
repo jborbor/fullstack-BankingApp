@@ -29,20 +29,17 @@ public class CuentaServiceImpl {
     private final ClienteClient clienteClient;
     private final MovimientoRepository movimientoRepository;
 
-    @Transactional(readOnly = true)
     public List<CuentaResponseDTO> getAllCuentas() {
         List<Cuenta> cuentas = cuentaRepository.findAll();
         return cuentaMapper.toResponseDtoList(cuentas);
     }
 
-    @Transactional(readOnly = true)
     public CuentaResponseDTO getCuentaById(Long id) {
         Cuenta cuenta = cuentaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta con id " + id + " no encontrada"));
         return cuentaMapper.toResponseDTO(cuenta);
     }
 
-    @Transactional(readOnly = true)
     public CuentaResponseDTO getCuentaByNumeroCuenta(String numeroCuenta) {
         Cuenta cuenta = cuentaRepository.findByNumeroCuenta(numeroCuenta)
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta " + numeroCuenta + " no encontrada"));

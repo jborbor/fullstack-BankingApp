@@ -17,12 +17,12 @@ public class ClienteClient {
                 .build();
     }
 
-    public ClienteResponseDTO getClienteById(Integer id) {
+    public ClienteResponseDTO getClienteById(Long id) {
         return webClient.get()
                 .uri("/{id}", id)
                 .retrieve()
                 .bodyToMono(ClienteResponseDTO.class)
-                .block(); // ← Sincrónico
+                .block(); // ← Sincróno
     }
 
     public ClienteResponseDTO getClienteBydentificacion(String identificacion) {

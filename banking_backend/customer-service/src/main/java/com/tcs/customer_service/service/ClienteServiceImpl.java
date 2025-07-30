@@ -19,20 +19,17 @@ public class ClienteServiceImpl {
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
 
-    @Transactional(readOnly = true)
     public List<ClienteResponseDTO> getAllClientes() {
         List<Cliente> clientes = clienteRepository.findAll();
         return clienteMapper.toResponseDtoList(clientes);
     }
-
-    @Transactional(readOnly = true)
+    
     public ClienteResponseDTO getClienteById(Long id) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente con id " + id + " no encontrado"));
         return clienteMapper.toResponseDTO(cliente);
     }
 
-    @Transactional(readOnly = true)
     public ClienteResponseDTO getClienteByIdentificacion(String identificacion) {
         Cliente cliente = clienteRepository.findByIdentificacion(identificacion)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente con cc" + identificacion + " no encontrada"));

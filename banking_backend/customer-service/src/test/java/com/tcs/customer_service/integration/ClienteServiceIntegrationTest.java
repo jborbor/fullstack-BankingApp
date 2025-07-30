@@ -30,7 +30,7 @@ public class ClienteServiceIntegrationTest {
         dto.setGenero(Genero.MASCULINO);
         dto.setEdad(30);
         dto.setIdentificacion("1234567890");
-        dto.setDireccion("Calle Falsa 123");
+        dto.setDireccion("Calle 123");
         dto.setTelefono("0987654321");
         dto.setContrasenia("pass123");
         dto.setEstado(Estado.TRUE);
