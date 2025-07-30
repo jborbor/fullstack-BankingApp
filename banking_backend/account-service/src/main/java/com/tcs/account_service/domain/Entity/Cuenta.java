@@ -37,7 +37,7 @@ public class Cuenta {
     private Estado estado;
 
     @Column(name = "cliente_id", nullable = false)
-    private int clienteId;
+    private Long clienteId;
 
     @PrePersist
     public void prePersist() {

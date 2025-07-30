@@ -14,6 +14,6 @@ public class CuentaResponseDTO {
     private TipoCuenta tipoCuenta;
     private BigDecimal saldoInicial;
     private Estado estado;
-    private int clienteId;
+    private Long clienteId;
 
 }

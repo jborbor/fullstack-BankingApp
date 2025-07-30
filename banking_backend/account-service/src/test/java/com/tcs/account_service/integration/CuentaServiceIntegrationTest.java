@@ -26,7 +26,7 @@ public class CuentaServiceIntegrationTest {
     @Test
     void testGuardarCuenta() {
         CuentaRequestDTO dto = new CuentaRequestDTO();
-        dto.setClienteId(1);
+        dto.setClienteId(1L);
         dto.setNumeroCuenta("123456");
         dto.setSaldoInicial(new java.math.BigDecimal("1000"));
         dto.setEstado(Estado.TRUE);

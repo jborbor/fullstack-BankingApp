@@ -45,7 +45,7 @@ public class CuentaServiceImplTest {
     void saveCuenta_Success() {
         // Datos de prueba
         CuentaRequestDTO requestDTO = new CuentaRequestDTO();
-        requestDTO.setClienteId(1);
+        requestDTO.setClienteId(1L);
         requestDTO.setNumeroCuenta("12345");
         requestDTO.setTipoCuenta(TipoCuenta.AHORROS);
         requestDTO.setSaldoInicial(new BigDecimal("1000"));
@@ -62,7 +62,7 @@ public class CuentaServiceImplTest {
         cuentaResponseDTO.setNumeroCuenta(requestDTO.getNumeroCuenta());
 
         // Configurar mocks
-        when(clienteClient.getClienteById(1)).thenReturn(clienteResponseDTO);
+        when(clienteClient.getClienteById(1L)).thenReturn(clienteResponseDTO);
         when(cuentaMapper.toResponseEntity(requestDTO)).thenReturn(cuenta);
         when(cuentaMapper.toResponseDTO(cuenta)).thenReturn(cuentaResponseDTO);
         when(cuentaRepository.save(cuenta)).thenReturn(cuenta);
@@ -79,9 +79,9 @@ public class CuentaServiceImplTest {
     @Test
     void saveCuenta_ClienteNoExiste_ThrowsException() {
         CuentaRequestDTO requestDTO = new CuentaRequestDTO();
-        requestDTO.setClienteId(999);
+        requestDTO.setClienteId(999L);
 
-        when(clienteClient.getClienteById(999)).thenReturn(null);
+        when(clienteClient.getClienteById(999L)).thenReturn(null);
 
         // Validar excepción o comportamiento esperado
         assertThrows(ResourceNotFoundException.class, () -> cuentaService.saveCuenta(requestDTO));
