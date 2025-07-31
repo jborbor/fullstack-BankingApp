@@ -1,6 +1,6 @@
 # BANKING - Full Stack Project
 
-Aplicacion para el manejo de clientes, cuentas y transacciones, desarrollado con una arquitectura de microservicios usando **Spring Boot**, **Angular**, **MySQL** y **Docker**.
+Aplicacion para el manejo de clientes, cuentas y transacciones, desarrollado con una arquitectura de microservicios con comunicacion asincrona usando **Spring Boot**, **RabbitMQ**, **Angular**, **MySQL** y **Docker**.
 
 ## 📦 Estructura del Proyecto
 
@@ -11,6 +11,8 @@ fullstack-Banking/
 │   ├── customer_service/    # Manejo de Clientes
 ├── banking_database/
 │   └── sql/                 # Scripts y stored procedures
+├── postman/
+│   └── collection/          # Archivo para pruebas de api
 ├── banking_frontend/        # Interfaz de usuario (Angular)
 ├── docker-compose.yml
 ```
@@ -18,6 +20,7 @@ fullstack-Banking/
 ## 🚀 Tecnologías Usadas
 
 - Spring Boot 3 (Java 21)
+- RabbitMQ
 - Angular
 - MySQL 8
 - Docker + Docker Compose

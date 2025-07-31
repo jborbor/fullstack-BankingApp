@@ -14,20 +14,24 @@ import com.tcs.account_service.repository.MovimientoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class CuentaServiceImpl {
 
     private final CuentaRepository cuentaRepository;
     private final CuentaMapper cuentaMapper;
     private final ClienteClient clienteClient;
     private final MovimientoRepository movimientoRepository;
+    private final ClienteRequestService clienteRequestService;
 
     public List<CuentaResponseDTO> getAllCuentas() {
         List<Cuenta> cuentas = cuentaRepository.findAll();
@@ -47,9 +51,14 @@ public class CuentaServiceImpl {
     }
 
     @Transactional
-    public CuentaResponseDTO saveCuenta(CuentaRequestDTO cuentaRequestDTO) {
+    public CuentaResponseDTO saveCuenta(CuentaRequestDTO cuentaRequestDTO){
 
-        ClienteResponseDTO cliente = clienteClient.getClienteById(cuentaRequestDTO.getClienteId());
+        // Implementacion mediante Peticion Sincrona Rest - webClient
+        // ClienteResponseDTO cliente = clienteClient.getClienteById(cuentaRequestDTO.getClienteId());
+
+        // Implementacion mediante Peticion Asincrona - RabbitMQ
+        log.info("Solicitando información del cliente: {}", cuentaRequestDTO.getClienteId());
+        ClienteResponseDTO cliente = clienteRequestService.sendClienteRequest(cuentaRequestDTO.getClienteId());
 
         if (cliente == null) {
             throw new ResourceNotFoundException("Cliente no encontrado con id: " + cuentaRequestDTO.getClienteId());
@@ -86,6 +95,8 @@ public class CuentaServiceImpl {
     }
 
     public List<ReporteResponseDTO> generarReporteEstadoCuenta(String identificacion, LocalDate fechaInicio, LocalDate fechaFin) {
+
+        // Implementacion mediante Peticion Sincrona Rest - webClient
         ClienteResponseDTO cliente = clienteClient.getClienteBydentificacion(identificacion);
         List<Cuenta> cuentas = cuentaRepository.findByClienteId(cliente.getId().intValue());
 
